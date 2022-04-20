@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>Compila queste informazioni per procedere</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-5">
+            <mat-form-field>
+                <mat-label>Tipo di pagamento</mat-label>
+                <input matInput [(ngModel)]="data.payment_type">
+              </mat-form-field>
+        </div>
+        <div class="col-5 offset-1">
+            <mat-form-field>
+                <mat-label>Numero di carta</mat-label>
+                <input matInput [(ngModel)]="data.card_number">
+              </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <mat-form-field>
+                <mat-label>Paese</mat-label>
+                <input matInput [(ngModel)]="data.country">
+              </mat-form-field>
+        </div>
+        <div class="col-5 offset-1">
+            <mat-form-field>
+                <mat-label>Città</mat-label>
+                <input matInput [(ngModel)]="data.city">
+              </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <mat-form-field>
+                <mat-label>Via</mat-label>
+                <input matInput [(ngModel)]="data.street">
+              </mat-form-field>
+        </div>
+        <div class="col-5 offset-1">
+            <mat-form-field>
+                <mat-label>Ulteriori informazioni</mat-label>
+                <input matInput [(ngModel)]="data.info">
+              </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <div mat-dialog-actions>
+                <button [mat-dialog-close]="" class="btn" >Annulla</button>
+              </div>
+        </div>
+        <div class="col-5 offset-1">
+            
+              <div mat-dialog-actions>
+                <button [mat-dialog-close]="data" class="btn" cdkFocusInitial>Paga e concludi</button>
+            </div>
+        </div>
+        
+          
+    </div>
+</div>
+

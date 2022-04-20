@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <img class="img-fluid" src={{infoProduct.product_picture}} alt="product_picture">
+        </div>
+        <div class="col-6">
+            <a href="#" [routerLink]="['/product-detail', infoProduct._id]">
+                <h3>{{product.name}}</h3>
+            </a>
+            <h6>Quantità : {{product.quantity}}</h6>
+            <a (click)="open()" >Scrivi una recensione per questo prodotto.</a>
+        </div>
+        <div class="col-3">
+            <h5>Prezzo</h5>
+            <h6>{{product.price}} €</h6>
+            <p>{{product.sale}}% SCONTO</p>
+        </div>
+    </div>
+</div>

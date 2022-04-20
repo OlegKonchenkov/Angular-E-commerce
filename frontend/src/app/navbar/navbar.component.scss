@@ -1,0 +1,60 @@
+$margin-right-5px: 5px;
+#notify {
+    margin-right: $margin-right-5px;
+}
+.logout{
+    color: black;
+}
+ .navbar{
+     background-color: white;
+ }
+
+.cartcount {
+    position: absolute;
+    top: -11px;
+    right: -11px;
+    padding: 1px 7px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+  /* put red color if you not want the text inside*/
+}
+
+.cartitem {
+    position: relative;
+}
+
+.cart-logo{
+    margin-left: 15px;
+}
+
+.notificationscount {
+    position: absolute;
+    top: -11px;
+    right: -5px;
+    padding: 1px 7px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+}
+
+.notificationsitem {
+    position: relative;
+}
+
+@media (max-width: 992px) { 
+    .cartcount {
+        top: -9px;
+        right: unset;
+        left: 20px;
+    }
+    .cart-logo{
+        margin-left: 0px;
+    }
+    
+    .notificationscount {
+        top: -9px;
+        right: unset;
+        left: 20px;
+    }
+ }

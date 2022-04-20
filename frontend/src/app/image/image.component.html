@@ -1,0 +1,12 @@
+<input type="file" (change)="encodeImageFileAsURL($event)" />
+<img style='display:block;;max-width:210px;height:auto' id='imageBase64' src={{imageBase64}} />
+
+<image-cropper style='display:block; width:400px;height:400px;'
+       [imageChangedEvent]="imageChangedEvent"
+       [maintainAspectRatio]="true"
+       [aspectRatio]="1/1"
+       [resizeToWidth]="256"
+       [resizeToHeight]="256"
+       format="png"
+       (imageCropped)="imageCropped($event)"
+></image-cropper>

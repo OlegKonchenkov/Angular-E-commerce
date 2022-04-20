@@ -1,0 +1,141 @@
+<div style="text-align:center; margin-bottom: 24px">
+  <h1>
+    {{ title }}
+  </h1>
+</div>
+<div style="text-align:center; margin-bottom: 24px">
+  <h1>
+    {{subtitle}}
+  </h1>
+</div>
+
+<div *ngIf="vendorData">
+  <div class="container">
+    <div class="user-data card">
+      <div>
+        <div align="center">
+          <img style='display:block;width:100%;max-width:210px;height:auto' src={{vendorData.shop_picture}} />
+        </div>
+        <div>
+          <span style="font-weight:bold">Nome:</span> {{vendorData.first_name}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Cognome:</span> {{vendorData.last_name}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Telefono:</span> {{vendorData.phone_number}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Email:</span> {{vendorData.email}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Username:</span> {{vendorData.username}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Stato Registrazione:</span> {{vendorData.registration_status}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Nome Negozio:</span> {{vendorData.shop_name}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Descrizione Negozio:</span> {{vendorData.description}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Posizione Geografica:</span> {{vendorData.location.geometry.coordinates}}
+        </div>
+      </div>
+      <div>
+        <button style="margin: 4px;" class="btn btn-primary" (click)="editVendor($event, vendorData)">
+          <i class="fas fa-edit"></i> Modifica Dati
+        </button>
+        <button style="margin: 4px;" class="btn btn-danger" (click)="deleteVendor($event, vendorData)">
+          <i class="fas fa-trash"></i> Cancella Account
+        </button>
+      </div>
+
+      <div>
+        <div class="status" *ngIf="vendorDeleted && vendorData.id === vendorDeletedId">
+          Account Cancellato con Successo
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="showEditVendorForm">
+  <div class="create-block">
+    <div>
+      <h3>Modifica Account:</h3>
+    </div>
+    <form [formGroup]="editVendorForm" (submit)="editVendorData($event, editVendorForm)">
+      <div class="form-group row">
+        <label class="col-sm-3" for="vendor_first_name">Nome:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Nome Commerciante" id="vendor_first_name" formControlName="first_name">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="vendor_last_name">Cognome:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Cognome Commerciante" id="vendor_last_name" formControlName="last_name">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="vendor_phone_number">Telefono:</label>
+        <input class="col-sm-9" type="number" placeholder="Inserisci Numero di Telefono" id="vendor_phone_number" formControlName="phone_number">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="vendor_email">Email:</label>
+        <input class="col-sm-9" type="email" placeholder="Inserisci Email" id="vendor_email" formControlName="email">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="vendor_username">Username:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Username" id="vendor_username" formControlName="username">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="vendor_old_password">Vecchia Password:</label>
+        <input class="col-sm-9" type="password" placeholder="Inserisci Vecchia Password" id="vendor_old_password" formControlName="old_password">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="vendor_new_password">Nuova Password:</label>
+        <input class="col-sm-9" type="password" placeholder="Inserisci Nuova Password" id="vendor_new_password" formControlName="new_password">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="shop_picture">Immagine Negozio:</label>
+        <div class="col-sm-9">
+          <input type="file" (change)="encodeImageFileAsURL($event)" style="max-height:30px" />
+          <image-cropper style='display:block;width:100%;max-width:300px;height:auto;margin-top:40px'
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="1/1"
+                [resizeToWidth]="256"
+                [resizeToHeight]="256"
+                format="png"
+                (imageCropped)="imageCropped($event)">
+          </image-cropper>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="vendor_shop_name">Nome Negozio:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Nome Negozio" id="vendor_shop_name" formControlName="shop_name">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="vendor_description">Descrizione Negozio:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci la miglior descrizione del tuo Negozio" id="vendor_description" formControlName="description">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="vendor_location">Posizione Geografica:</label><br/>
+        <div class="container map">
+          <app-map></app-map> 
+        </div>
+      </div>  
+      <button class="btn btn-primary" type="submit">Modifica Dati Account</button>
+    </form>
+
+    <div class="status" *ngIf="productEdited">
+      Account Modificato con Successo!
+    </div>
+    <div class="status" *ngIf="validPassword">
+      Vecchia Password Obbligatoria
+    </div>
+    <div class="status" *ngIf="errorVendorEdit">
+      Data Error from Database, Please Retry
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+.notificationscount {
+    position: absolute;
+    top: -11px;
+    right: -11px;
+    padding: 1px 7px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+}
+
+.notificationsitem {
+    position: relative;
+}
+
+@media (max-width: 992px) { 
+    
+    .notificationscount {
+        top: -9px;
+        right: unset;
+        left: 15px;
+    }
+ }

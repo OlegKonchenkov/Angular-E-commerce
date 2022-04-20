@@ -1,0 +1,112 @@
+<div style="text-align:center; margin-bottom: 24px">
+    <h1>
+      {{ title }}
+    </h1>
+</div>
+
+<div style="text-align:center; margin-bottom: 24px">
+  <h1>
+    {{subtitle}}
+  </h1>
+</div>
+
+<div *ngIf="customerData">
+  <div class="container">
+    <div class="user-data card">
+      <div>
+        <div align="center">
+          <img style='display:block;width:100%;max-width:210px;height:auto' src={{customerData.profile_picture}} />
+        </div>
+        <div>
+          <span style="font-weight:bold">Nome:</span> {{customerData.first_name}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Cognome:</span> {{customerData.last_name}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Email:</span> {{customerData.email}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Username:</span> {{customerData.username}}
+        </div>
+      </div>
+      <div>
+        <button style="margin: 4px;" class="btn btn-primary" (click)="editCustomer($event, customerData)">
+          <i class="fas fa-edit"></i> Modifica Account
+        </button>
+        <button style="margin: 4px;" class="btn btn-danger" (click)="deleteCustomer($event, customerData)">
+          <i class="fas fa-trash"></i> Cancella Account
+        </button>
+      </div>
+
+      <div>
+        <div class="status" *ngIf="customerDeleted && customerData.id === customerDeletedId">
+          Account Eliminato con Successo!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="text-align:center" *ngIf="!customerData">
+    <h2>Errore, Ricarica la Pagina per favore!</h2>
+</div>
+
+<div class="container" *ngIf="showEditCustomerForm">
+  <div class="create-block">
+    <div>
+      <h3>Modifica Account:</h3>
+    </div>
+    <form [formGroup]="editCustomerForm" (submit)="editCustomerData($event, editCustomerForm)">
+      <div class="form-group row">
+        <label class="col-sm-3" for="customer_first_name">Nome:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci il tuo Nome" id="customer_first_name" formControlName="first_name">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="customer_last_name">Last Name:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci il tuo Cognome" id="customer_last_name" formControlName="last_name">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="customer_email">Email:</label>
+        <input class="col-sm-9" type="email" placeholder="Inserisci la tua miglior Email" id="customer_email" formControlName="email">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="customer_username">Username:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Username" id="customer_username" formControlName="username">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="customer_old_password">Old Password:</label>
+        <input class="col-sm-9" type="password" placeholder="Inserisci vecchia Password" id="customer_old_password" formControlName="old_password">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="customer_new_password">New Password:</label>
+        <input class="col-sm-9" type="password" placeholder="Inserisci nuova Password" id="customer_new_password" formControlName="new_password">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="profile_picture">Immagine Profilo:</label>
+        <div class="col-sm-9">
+          <input type="file" (change)="encodeImageFileAsURL($event)" style="max-height:30px" />
+          <image-cropper style='display:block;width:100%;max-width:300px;height:auto;margin-top:40px'
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="1/1"
+                [resizeToWidth]="256"
+                [resizeToHeight]="256"
+                format="png"
+                (imageCropped)="imageCropped($event)">
+          </image-cropper>
+        </div> 
+      </div>
+      <button class="btn btn-primary" type="submit">Modifica Account</button>
+    </form>
+
+    <div class="status" *ngIf="customerEdited">
+      Account Modificato con Successo!
+    </div>
+    <div class="status" *ngIf="validPassword">
+      Inserimento Vecchia Password Necessario
+    </div>
+    <div class="status" *ngIf="errorCustomerEdit">
+      Errore dal Database, Per favore ricarica la Pagina
+    </div>
+  </div>
+</div>

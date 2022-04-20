@@ -1,0 +1,80 @@
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-10 offset-2 header">
+            <h1 class="mat-h1">Dettaglio ordine</h1>
+        </div>
+    </div>
+    <br>
+        <div class="container-fluid">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card border-dark">
+                            <h5 class="card-header">Ordine del {{order.date.substring(0,10)}}</h5>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="row-3">
+                                        <h5>Num. ordine: </h5><p>{{order._id}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="row-3">
+                                        <h5>Stato: </h5> <p>{{order.orderState}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="row-3">
+                                        <h5>Nome negozio: </h5><p>{{vendor.shop_name}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <ul class="orders">
+                                        <li *ngFor="let item of items">
+                                            <div class="row-3">
+                                                <h5>Prodotto: </h5><p>{{item.name}}</p>
+                                                <h5>Quantità: </h5><p>{{item.quantity}}</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <div class="row-3">
+                                        <h5>Indirizzo consegna:</h5>
+                                        <p>Country: {{order.shippingData.country}}</p>
+                                        <p>City: {{order.shippingData.city}}</p>
+                                        <p>Street: {{order.shippingData.street}}</p>
+                                        <p>Info: {{order.shippingData.info}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="row-3">
+                                        <h5>Distanza: </h5><p>{{distance}}m</p>
+                                    </div>
+                                </div>
+                                <div *ngIf="state == 'Created'">
+                                    <div class="col-12">
+                                        <button class="btn" (click)="takeOrder()">Prendi in carico</button>
+                                    </div>
+                                </div>
+                                <div *ngIf="state == 'Spedito'">
+                                    <div class="col-12">
+                                        <button class="btn" (click)="changeDeliveryState(order._id)">Notifica Consegna</button>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        <br>
+                    </div> 
+                </div>
+                <br>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+</div>
+
+<div id="map-delivery-detail"></div>
+<br>
+<br>
+<br>

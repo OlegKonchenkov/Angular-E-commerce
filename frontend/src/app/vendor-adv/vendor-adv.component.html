@@ -1,0 +1,32 @@
+<div style="text-align:center; margin-bottom: 24px">
+    <h1>
+      {{adv}}
+    </h1>
+</div>
+<div class="container">
+    <div class="create-block">
+        <div style="margin-bottom:5px">
+          <h3>Crea Annuncio:</h3>
+        </div>
+        <form [formGroup]="advForm" (submit)="createAdv($event, advForm)">
+          <div class="form-group row">
+            <label class="col-sm-3" for="adv_name">Titolo:</label>
+            <input class="col-sm-9" type="text" placeholder="Inserisci Titolo Annuncio" id="adv_name" formControlName="title">
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3" for="adv_description">Descrizione:</label>
+            <input class="col-sm-9" type="text" placeholder="Inserisci Descrizione Annuncio" id="adv_description" formControlName="body">
+          </div>
+          <button class="btn btn-primary" type="submit">
+            <i class="fas fa-plus"></i> Crea Annuncio
+          </button>
+        </form>
+    
+        <div class="status" *ngIf="advCreated">
+          Annuncio Creato con Successo
+        </div>
+        <div class="status" *ngIf="errorAdvCreated">
+          Errore nella Creazione dell'Annuncio, Probabilmente Annuncio Duplicato, Riprova.
+        </div>
+    </div>
+</div>

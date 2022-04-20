@@ -1,0 +1,30 @@
+$width: 100%;
+$padding-8: 8px;
+$padding-24: 24px;
+$margin-8: 8px;
+$margin-24: 24px;
+$border-5: 5px;
+
+.user-data {
+	width: $width;
+	padding: $padding-24;
+	margin-bottom: $margin-24;
+	box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+.info-block {
+	display: flex;
+}
+.create-block {
+	padding: $padding-24;
+	border: 1px solid grey;
+	border-radius: $border-5;
+	margin-bottom: $padding-24;
+}
+.status {
+	padding: $padding-8;
+	background: #0b990b;
+	color: white;
+	margin-top: $margin-8;
+	border: 1px solid black;
+	border-radius: $border-5;
+}

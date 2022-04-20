@@ -1,0 +1,194 @@
+<div style="text-align:center; margin-bottom: 24px">
+  <h1>
+    {{products}}
+  </h1>
+</div>
+  <div *ngIf="!showEditProductForm" class="container">
+    <div class="create-block">
+      <div style="margin-bottom:5px">
+        <h3>Crea Prodotto:</h3>
+      </div>
+      <form [formGroup]="productForm" (submit)="createProduct($event, productForm)">
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_image">Immagine:</label>
+          <div class="col-sm-9">
+            <input type="file" (change)="encodeImageFileAsURL($event)" style="max-height:30px" />
+            <image-cropper style='display:block;width:100%;max-width:300px;height:auto;margin-top:40px'
+                  [imageChangedEvent]="imageChangedEvent"
+                  [maintainAspectRatio]="true"
+                  [aspectRatio]="1/1"
+                  [resizeToWidth]="256"
+                  [resizeToHeight]="256"
+                  format="png"
+                  (imageCropped)="imageCropped($event)">
+            </image-cropper>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_name">Nome:</label>
+          <input class="col-sm-9" type="text" placeholder="Inserisci Nome Prodotto" id="product_name" formControlName="name">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_type">Tipologia:</label>
+          <select [(ngModel)]="selectedOption" formControlName="type">
+            <option *ngFor="let o of options">
+               {{o.name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_price">Prezzo:</label>
+          <input class="col-sm-9" type="number" placeholder="Inserisci Prezzo Prodotto" id="product_price" formControlName="price">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_sale">Sconto:</label>
+          <input class="col-sm-9" type="number" placeholder="Inserisci Sconto Prodotto" id="product_sale" formControlName="sale">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_description">Descrizione:</label>
+          <input class="col-sm-9" type="text" placeholder="Inserisci una Descrizione del Prodotto" id="product_description" formControlName="description">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_quantity">Quantità:</label>
+          <input class="col-sm-9" type="number" placeholder="Inserisci Quantità Prodotto" id="product_quantity" formControlName="quantity">
+        </div>  
+        <button class="btn btn-primary" type="submit">
+          <i class="fas fa-plus"></i> Crea Prodotto
+        </button>
+      </form>
+  
+      <div class="status" *ngIf="productCreated">
+        Prodotto Creato con Successo
+      </div>
+      <div class="status" *ngIf="errorProductCreated">
+        Errore nella Creazione del Prodotto, Probabilmente Prodotto Duplicato, Riprovare.
+      </div>
+    </div>
+  </div>
+  
+  <h3 style="margin:15px" class="text-center">I miei Prodotti:</h3>
+  <div class="container-fluid">
+    <div *ngIf="productData" style="margin:10px">
+      <div class="row wow fadeIn">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4" *ngFor="let product of productData">
+          <div *ngIf="!showEditUserForm" class="user-data card" style="max-width:360px">
+            <div>
+              <div>
+                <img style='display:block;width:100%;max-width:210px;height:auto' src={{product.product_picture}} />
+              </div>
+              <div style="max-width:310px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                <span *ngIf="product.name" style="font-weight:bold">Nome: </span>{{product.name}}
+              </div>
+              <div style="max-width:310px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                <span *ngIf="product.new_name" style="font-weight:bold">Nome: </span>{{product.new_name}}
+              </div>
+              <div>
+                <span style="font-weight:bold">Tipologia: </span>{{product.type}}
+              </div>
+              <div>
+                <span style="font-weight:bold">Prezzo: </span>{{product.price}} €
+              </div>
+              <div>
+                <span style="font-weight:bold">Sconto: </span>{{product.sale}}%
+              </div>
+              <div style="max-width:310px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                <span style="font-weight:bold">Descrizione: </span>{{product.description}}
+              </div>
+              <div>
+                <span style="font-weight:bold">Quantità: </span>{{product.quantity}} pz.
+              </div>
+            </div>
+            <div style="margin-top:5px">
+              <button style="margin: 4px;" class="btn btn-primary" (click)="editProduct($event, product); goToBottom()">
+                <i class="fas fa-edit"></i> Modifica 
+              </button>
+              <button style="margin: 4px;" class="btn btn-danger" (click)="deleteProduct($event, product)">
+                <i class="fas fa-trash"></i> Elimina 
+              </button>
+            </div>
+      
+            <div>
+              <div class="status" *ngIf="productChoose && product._id === productChooseId">
+                Sotto questa Lista troverai il Form per la Modifica del Prodotto!
+              </div>
+            </div>
+            <div>
+              <div class="status" *ngIf="productDeleted && product.id === productDeletedId">
+                Prodotto Eliminato con Successo
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container" *ngIf="showEditProductForm" style="margin-top:10px">
+    <div class="create-block">
+      <div>
+        <h3>Modifica Prodotto:</h3>
+      </div>
+      <form [formGroup]="editProductForm" (submit)="editProductData($event, editProductForm)">
+        <div style="display:none" class="form-group row">
+          <label class="col-sm-3" for="product_name">ID:</label>
+          <input class="col-sm-9" type="text" id="product_id" formControlName="_id">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_image">Immagine:</label>
+          <div class="col-sm-9">
+            <input type="file" (change)="encodeImageFileAsURL($event)" style="max-height:30px" />
+            <image-cropper style='display:block;width:100%;max-width:300px;height:auto;margin-top:40px'
+                  [imageChangedEvent]="imageChangedEvent"
+                  [maintainAspectRatio]="true"
+                  [aspectRatio]="1/1"
+                  [resizeToWidth]="256"
+                  [resizeToHeight]="256"
+                  format="png"
+                  (imageCropped)="imageCropped($event)">
+            </image-cropper>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_name">Nome:</label>
+          <input class="col-sm-9" type="text" placeholder="Inserisci Nome Prodotto" id="product_name" formControlName="new_name">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_type">Tipologia:</label>
+          <select [(ngModel)]="selectedOption" formControlName="type">
+            <option *ngFor="let o of options">
+               {{o.name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_price">Prezzo:</label>
+          <input class="col-sm-9" type="number" placeholder="Inserisci Prezzo" id="product_price" formControlName="price">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_sale">Sconto:</label>
+          <input class="col-sm-9" type="number" placeholder="Inserisci Sconto" id="product_sale" formControlName="sale">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_description">Descrizione:</label>
+          <input class="col-sm-9" type="text" placeholder="Inserisci Descrizione Prodotto" id="product_description" formControlName="description">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3" for="product_quantity">Quantità:</label>
+          <input class="col-sm-9" type="number" placeholder="Inserisci Quantità Prodotto" id="product_quantity" formControlName="quantity">
+        </div>  
+        <button class="btn btn-primary" type="submit">Modifica Prodotto</button>
+      </form>
+
+      <div class="status" *ngIf="productEdited">
+        Prodotto Modificato con Successo
+      </div>
+      <div class="status" *ngIf="errorProductEdit">
+        Errore nella modifica del Prodotto, probabilmente Nome Duplicato, Riprovare Grazie
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center" *ngIf="!productData">
+    <h5>{{noProducts}}</h5>
+  </div>

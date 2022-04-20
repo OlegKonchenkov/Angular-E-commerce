@@ -1,0 +1,26 @@
+<div class="container ">
+    <div class="row">
+        <div class="col-12  header">
+            <h1 class="mat-h1">{{title}}</h1>
+        </div>
+    </div>
+        <div class="container-fluid">
+            <div *ngIf="products.length > 0; else elseBlock">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4" *ngFor="let product of products">
+                        <app-card-single-product [product]=product></app-card-single-product>
+                    </div>
+                </div>
+                
+            </div>
+            <ng-template #elseBlock>
+                <div class="container-fluid mat-typography">
+                    <p>Nessun prodotto in questa sezione, torna più tardi.</p> 
+                </div>
+                
+            </ng-template>
+        </div>
+        <br>
+        <br>
+        <br>
+</div>

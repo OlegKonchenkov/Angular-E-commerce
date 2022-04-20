@@ -1,0 +1,18 @@
+<div class="card border-dark">
+    <a [routerLink]="['/vendor-page', vendor.shop_name]">
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-2 nopadding">
+                        <img class="img-fluid" src={{vendor.shop_picture}} alt="shop_picture">
+                    </div>
+                    <div class="col-9 offset-1">
+                        <h3>{{vendor.shop_name}}</h3>
+                        <p>{{vendor.description}}</p>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </a>
+</div>
+

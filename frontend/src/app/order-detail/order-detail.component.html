@@ -1,0 +1,100 @@
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-10 offset-2 header">
+            <h1 class="mat-h1">Dettaglio dell'ordine</h1>
+        </div>
+    </div>
+    <br>
+        <div class="container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card border-dark">
+                            <h5 class="card-header">Ordine del 05-10-2020</h5>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <h5>Indirizzo di spedizione:</h5>
+                                    </div>
+                                    <div class="col-5 offset-1">
+                                        <h5>Tipo di pagamento: </h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-5">
+                                        <p>{{shippingData.street}} - {{shippingData.country}} - {{shippingData.city}} </p>
+                                        <p>{{shippingData.info}}</p>
+                                    </div>
+                                    <div class="col-5 offset-1">
+                                        <p>{{paymentData.paymentType}}</p>
+                                        <p>{{paymentData.cardNumber}}</p>
+                                        
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <h5>Riepilogo ordine: </h5>
+                                    </div>
+                                    <div class="col-5 offset-1">
+                                        <h5>Stato:</h5>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="row">
+                                            <div class="col-6">
+                                              <p>Totale articoli</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>{{order.totalPrice}} EUR</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 offset-1">
+                                        <p>{{order.orderState}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="card border-dark">
+                            <h5 class="card-header">Prodotti dell'ordine</h5>
+                            <div class="card-body">
+                                <ul>
+                                    <li *ngFor="let product of products; let i = index">
+                                        <app-order-product-detail [index]=i [product]=product></app-order-product-detail>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <br>
+                        <div *ngIf="order.orderState == 'Spedito' ; else elseBlock">
+                            <div class="container map">
+                                <h5>Controlla in tempo reale la posizione del fattorino</h5>
+                                <br>
+                                <app-customer-map [deliveryId]=order.delivery.delivery_id></app-customer-map> 
+                            </div>
+                        </div>
+                        <ng-template #elseBlock>
+                            <div *ngIf="order.orderState == 'Created' ; else shippedBlock">
+                                <h5>L'ordine selezionato è in fase di elaborazione</h5>
+                            </div>
+                            <ng-template #shippedBlock>
+                                <h5>L'ordine selezionato è {{order.orderState}}</h5>
+                            </ng-template>
+                        </ng-template>
+                        
+                    </div> 
+                </div>
+                <br>
+            </div>
+            
+        </div>
+        <br>
+        <br>
+        <br>
+</div>

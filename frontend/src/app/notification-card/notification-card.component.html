@@ -1,0 +1,23 @@
+<div class="card border-dark">
+    <h5 class="card-header">{{notification.sender_type}}</h5>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8">
+                <h5>{{notification.title}}</h5>
+            </div>
+            <div class="col-4">
+                <div *ngIf="notification.visualized == false">
+                    <button class="btn" (click)="markReaded(notification._id)">Segna come letto</button>
+                </div>
+                
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <p>{{notification.body}}</p>
+            </div>
+        </div>
+    </div>
+  </div>
+

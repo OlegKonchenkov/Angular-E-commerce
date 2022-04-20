@@ -1,0 +1,28 @@
+<div class="container ">
+    <div class="row">
+        <div class="col-12  header">
+            <h1 class="mat-h1">Negozi</h1>
+        </div>
+    </div>
+        <div class="container-fluid">
+            <div *ngIf="vendors.length > 0; else elseBlock">
+                <ul>
+                    <li *ngFor="let vendor of vendors">
+                        <app-vendor-detail [vendor]=vendor></app-vendor-detail>
+                        <br>
+                    </li>
+                </ul>
+                
+                
+            </div>
+            <ng-template #elseBlock>
+                <div class="container-fluid mat-typography">
+                    <p>Nessun negozio registrato, torna più tardi.</p> 
+                </div>
+                
+            </ng-template>
+        </div>
+        <br>
+        <br>
+        <br>
+</div>

@@ -1,0 +1,19 @@
+/* input color class */
+::ng-deep input.mat-input-element {
+    color: black;
+  }
+  
+  /* Change label color on focused */
+  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: #0275d8 !important;
+  }
+  
+  /* underline border color on focused */
+  ::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+    background-color: #0275d8 !important;
+  }
+
+  //#50d0fb
+
+  
+  

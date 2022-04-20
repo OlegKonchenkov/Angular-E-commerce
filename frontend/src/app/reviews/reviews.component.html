@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12  header">
+            <h1 class="mat-h1">Recensioni del prodotto</h1>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-3">
+            <img class="img-fluid" src={{product.product_picture}} alt="alternatetext">
+        </div>
+        <div class="col-6">
+            <a href="#" [routerLink]="['/product-detail', product._id]">
+                <h3>{{product.name}}</h3>
+            </a>
+            <a [routerLink]="['/reviews', id]">
+                <app-stars [rating]=product.rating></app-stars>
+            </a>
+            <br>
+            <p>{{product.description}}</p>
+        </div>
+        <div class="col-3">
+            <h5>Prezzo</h5>
+            <h6>{{product.price}} €</h6>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <ul class="orders">
+                <li *ngFor="let review of reviews">
+                    <app-review-detail [review]=review></app-review-detail>
+                    <br>
+                    <br>
+                </li>
+            </ul>
+        </div> 
+    </div>
+    <br>
+    
+
+</div>

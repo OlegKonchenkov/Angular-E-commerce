@@ -1,0 +1,109 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h1>{{vendorShop.shop_name}}</h1>
+        </div>
+        <div class="col-4">
+            <button  *ngIf="displayFollow" class="rounded btn btn-success" type="button" (click)="addFollow()">Follow</button>
+            <button  *ngIf="displayUnFollow" class="rounded btn btn-success" type="button" (click)="removeFollower()">UnFollow</button>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div *ngIf="vendorShop.shop_picture != null; else noPictureBlock" class="row">
+        <div class="col-sm-6 col-xs-12">
+            <img class="img-fluid" style="display: block; margin-left: auto; margin-right: auto;" src={{vendorShop.shop_picture}} alt="image">
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <br>
+            <div class="row">
+                <div class="col-6">
+                    <h6>Email</h6>
+                </div>
+                <div class="col-6">
+                    <p>{{vendorShop.email}}</p>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-6">
+                    <h6>Numero di telefono</h6>
+                </div>
+                <div class="col-6">
+                    <p>{{vendorShop.phone_number}}</p>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-12">
+                    <p>{{vendorShop.description}}</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+        <ng-template #noPictureBlock>
+            <div class="row">
+                <div class="col-6">
+                    <p>Email</p>
+                </div>
+                <div class="col-6">
+                    <p>{{vendorShop.email}}</p>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-6">
+                    <p>Numero di telefono</p>
+                </div>
+                <div class="col-6">
+                    <p>{{vendorShop.phone_number}}</p>
+                </div>
+            </div>
+        </ng-template>
+        <br>
+        <div class="status" *ngIf="okFollow">
+            Follow Aggiunto con Successo!
+        </div>
+        <div class="status" *ngIf="errorFollow">
+            Errore gestione Follow, Riprova!
+        </div>
+        <div class="status" *ngIf="removeFollow">
+            Follow Rimosso con Successo!
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <h5>Dove trovarci:</h5>
+            </div> 
+            <br>
+            <br>
+            <div class="col-10 offset-1">
+                <app-map [location]=vendorShop.location></app-map>
+            </div> 
+        </div>
+        <hr>
+        <div class="container ">
+            <div class="container-fluid">
+                <div *ngIf="productData.length > 0; else elseBlock">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4" *ngFor="let product of productData">
+                            <app-card-single-product [product]=product></app-card-single-product>
+                        </div>
+                    </div>
+                    
+                </div>
+                <ng-template #elseBlock>
+                    <div class="container-fluid mat-typography">
+                        <p>Nessun prodotto in questo negozio, torna più tardi.</p> 
+                    </div>
+                    
+                </ng-template>
+            </div>
+            <br>
+            <br>
+            <br>
+        </div>
+        
+</div>

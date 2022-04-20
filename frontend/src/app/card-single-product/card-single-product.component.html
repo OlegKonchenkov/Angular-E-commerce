@@ -1,0 +1,59 @@
+<a href="#" style="text-decoration: none" [routerLink]="['/product-detail',product._id]">      
+<div class="card border-0 mb-5 shadow-lg _offer">
+  <div *ngIf="product.sale != 0">
+    <span class="_offerRibbon py-1 px-4 _bgPink text-white text-uppercase position-absolute">Offerta</span>
+  </div>
+  <div *ngIf="product.sale == 0">
+    <span style="background-color:white" class="py-1 px-4 _bgWhite text-white text-uppercase position-absolute"></span>
+  </div>
+  <img src={{product.product_picture}} alt="product_picture" class="card-img-top border-bottom"/>
+  <div class="card-body position-flex">
+    <div class="d-flex justify-content-between row">
+      <div class="col-12">
+        <h4 class="card-title text-truncate font-weight-bold">
+          {{product.name}}
+        </h4>
+      </div>
+    </div>
+             <!--<div class="card-subtitle text-muted text-truncate my-2">
+                <div *ngIf="product.quantity>0">
+                  Quantity: {{product.quantity}} pz.
+                </div>
+                <div *ngIf="product.quantity<=0">
+                  <strong style="color:red">Prodotto NON Disponibile</strong>
+                </div>
+              </div>-->
+    <div class="card-text">
+      <div class="row mb-4">
+        <div class="col-12">
+          <app-stars [rating]=product.rating></app-stars>
+        </div>
+      </div>
+      <div *ngIf="product.sale == 0; else saleBlock">
+        <div class="col-12">
+          <div class="_now h5 _textPink font-weight-bolder">{{product.price}} €</div>
+          <div style="color:white"class="col-5">-</div>
+      </div>
+    </div>
+    <ng-template #saleBlock>
+      <div class="row mb-4">
+        <div class="col-7">
+          <div class="_now h5 _textPink font-weight-bolder">{{product.price-((product.price*product.sale)/100)}} €</div>
+        </div>
+        <div class="col-5">
+          <del class="_before h6  text-black-50">{{product.price}} €</del>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+              <!--<button
+                class="btn p-3 _cartBtn rounded-0 _bgPink text-white text-uppercase d-inline-flex
+                align-items-center position-absolute"
+              >
+                <span>Add to cart</span>
+                <i class="material-icons ml-2 font-weight-light">
+                  add_shopping_cart
+                </i>
+              </button>-->
+  </div>
+</div></a>

@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 img-div">
+            <img class="img-fluid" src={{product.product_picture}} alt="product_picture">
+            <br>
+        </div>
+        <div class="col-sm-7 offset-sm-1">
+            <div class="row">
+                <div class="col-12">
+                    <h2>{{product.name}}</h2>
+                    <div *ngIf="product.sale == 0; else saleBlock">
+                        <div class="col-12">
+                            <h5> {{product.price}} €</h5>
+                        </div>
+                    </div>
+                    <ng-template #saleBlock>
+                        <div class="row">
+                            <div class="col-6">
+                                <h5>{{product.price-((product.price*product.sale)/100)}} €</h5>
+                            </div>
+                            <div class="col-6">
+                                <del><h5> {{product.price}} €</h5></del>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a [routerLink]="['/reviews', id]">
+                        <app-stars [rating]=product.rating></app-stars>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p>Venduto da</p>
+                </div>
+                <div class="col-6 offset-2 align-right">
+                    <a [routerLink]="['/vendor-page', product.shop_name]">{{product.shop_name}}</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p>Quantità</p>
+                </div>
+                <div class="col-6 offset-2 align-right">
+                    <select  [(ngModel)]="selectedOption" class="custom-select">
+                        <option *ngFor="let o of options" [ngValue]="o.value">
+                            {{o.name}}
+                         </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p>{{product.description}}</p>
+                    <div *ngIf="product.quantity == 0; else elseBlock">
+                        <br>
+                        <h5>Prodotto momentaneamente non disponibile</h5>
+                    </div>
+                    <ng-template #elseBlock>
+                        <div *ngIf="session.isLoggedIn(); else loginBlock">
+                            <button class="btn" (click)="addToCart()" >Aggiungi al carrello</button>
+                        </div>
+                        <ng-template #loginBlock>
+                            <br>
+                            <h5>Accedi per poter aggiungere il prodotto al carrello</h5>
+                        </ng-template>
+                    </ng-template>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div *ngIf="product.reviews.length > 0; else reviewBlock">
+        <div class="row mt-5">
+            <div class="col-12  header">
+                <h3 class="mat-h1">Recensioni del prodotto</h3>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <ul class="orders">
+                    <li *ngFor="let review of product.reviews">
+                        <app-review-detail [review]=review></app-review-detail>
+                        <br>
+                        <br>
+                    </li>
+                </ul>
+            </div> 
+        </div>
+        <br>
+    </div>
+    <ng-template #reviewBlock>
+        <div class="row">
+            <h6>Ancora nessuna recensione per questo prodotto</h6>
+        </div>
+    </ng-template>
+    
+</div>

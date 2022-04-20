@@ -1,0 +1,85 @@
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-10 offset-2 header">
+            <div *ngIf="state == 'Created'">
+                <h1 class="mat-h1">Spedizioni pronte per la consegna</h1>
+            </div>
+            <div *ngIf="state == 'Spedito'">
+                <h1 class="mat-h1">Spedizioni in carico</h1>
+            </div>
+            <div *ngIf="state == 'Consegnato'">
+                <h1 class="mat-h1">Storico spedizioni</h1>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+    <br>
+    <div *ngIf="state == 'Spedito' || state=='Created'">
+        <div class="container map">
+            <app-map [state]=state></app-map> 
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+        <div class="container-fluid">
+            <div *ngIf="orderData.length > 0; else elseBlock">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-4" *ngFor="let order of orderData">
+                            <div class="card border-dark">
+                                <h5 class="card-header">Ordine del {{order.order.date.substring(0,10)}}</h5>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="row-3">
+                                            <h5>Num. ordine: </h5><p>{{order.order._id}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row-3">
+                                            <h5>Stato: </h5> <p>{{order.order.orderState}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row-3">
+                                            <h5>Nome negozio: </h5><p>{{order.vendor.shop_name}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row-3">
+                                            <h5>Indirizzo consegna:</h5>
+                                            <p>Paese: {{order.order.shippingData.country}}</p>
+                                            <p>Città: {{order.order.shippingData.city}}</p>
+                                            <p>Via: {{order.order.shippingData.street}}</p>
+                                            <p>Informazioni: {{order.order.shippingData.info}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row-3">
+                                            <h5>Distanza: </h5><p>{{order.distance}}m</p>
+                                        </div>      
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn" [routerLink]="[ '/delivery-detail', order.order._id, order.vendor._id, order.vendor.shop_name, state]" >Dettagli</button>
+                                    </div>
+                                </div>
+                              </div>
+                            <br>
+                        </div>         
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <ng-template #elseBlock>
+                <div class="container-fluid mat-typography">
+                    <p>Non ci sono ordini pronti per la spedizione</p> 
+                </div>
+                
+            </ng-template>
+        </div>
+        <br>
+        <br>
+        <br>
+</div>
+

@@ -1,0 +1,25 @@
+<div class="container-fluid" style="text-align: center;">
+    <mat-form-field floatLabel="never" style="width:90% !important" class="example-full-width">
+        <input type="text"  placeholder="Cerca.." matInput [formControl]="myControl" [matAutocomplete]="auto" (keyup)="updated()"> <!--[(ngModel)]="data">-->
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of options" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button mat-icon-button aria-label="Search button" (click)="search()">
+        <mat-icon>search</mat-icon>
+      </button>
+</div>
+<!--<br>
+<div class="row no-gutters mt-3 align-items-center">
+    <div class="col col-md-4">
+        <input class="form-control border-secondary rounded-pill " type="search"  id="example-search-input2" style="width: 100%">
+    </div>
+    <div class="col-auto">
+        <button mat-icon-button  aria-label="Search button" (click)="search()">
+            <mat-icon>search</mat-icon>
+        </button>
+    </div>
+</div>-->
+

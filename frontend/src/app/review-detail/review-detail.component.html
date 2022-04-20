@@ -1,0 +1,17 @@
+<div class="card border-dark">
+    <h5 class="card-header">Recensione di: {{review.username}}</h5>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <app-stars [rating]=review.rating></app-stars>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <p>{{review.text}}</p>
+            </div>
+        </div>
+        
+    </div>
+</div>

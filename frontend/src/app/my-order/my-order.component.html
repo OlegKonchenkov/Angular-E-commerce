@@ -1,0 +1,29 @@
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-11 offset-1 header">
+            <h1 class="mat-h1">I miei ordini</h1>
+        </div>
+    </div>
+    <br>
+        <div class="container-fluid">
+            <div *ngIf="orders.length > 0; else elseBlock">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 mb-4" *ngFor="let order of orders">
+                            <app-order [order]=order></app-order>
+                        </div>
+                      </div>
+                    <br>
+                </div>
+            </div>
+            <ng-template #elseBlock>
+                <div class="container-fluid mat-typography">
+                    <p>Non hai ancora effettuato nessun ordine, che aspetti?</p> 
+                </div>
+                
+            </ng-template>
+        </div>
+        <br>
+        <br>
+        <br>
+</div>

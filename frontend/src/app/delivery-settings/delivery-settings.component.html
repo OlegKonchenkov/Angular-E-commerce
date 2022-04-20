@@ -1,0 +1,127 @@
+<div style="text-align:center; margin-bottom: 24px">
+    <h1>
+      {{ title }}
+    </h1>
+</div>
+<div style="text-align:center; margin-bottom: 24px">
+  <h1>
+    {{subtitle}}
+  </h1>
+</div>
+
+<div *ngIf="deliveryData">
+  <div class="container">
+    <div class="user-data card">
+      <div>
+        <div align="center">
+          <img style='display:block;width:100%;max-width:210px;height:auto' src={{deliveryData.profile_picture}} />
+        </div>
+        <div>
+          <span style="font-weight:bold">Nome:</span> {{deliveryData.first_name}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Cognome:</span> {{deliveryData.last_name}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Email:</span> {{deliveryData.email}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Username:</span> {{deliveryData.username}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Nome Negozio:</span> {{deliveryData.shop_name}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Posizione Geografica:</span> {{deliveryData.location.geometry.coordinates}}
+        </div>
+      </div>
+      <div>
+        <button style="margin: 4px;" class="btn btn-primary" (click)="editDelivery($event, deliveryData)">
+          <i class="fas fa-edit"></i> Modifica Account
+        </button>
+        <button style="margin: 4px;" class="btn btn-danger" (click)="deleteDelivery($event, deliveryData)">
+          <i class="fas fa-trash"></i> Elimina Account
+        </button>
+      </div>
+
+      <div>
+        <div class="status" *ngIf="deliveryDeleted && deliveryData.id === deliveryDeletedId">
+          Account Eliminato con Successo!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="text-align:center" *ngIf="!deliveryData">
+    <h2>Errore, Ricarica per Favore!</h2>
+</div>
+
+<div class="container" *ngIf="showEditDeliveryForm">
+  <div class="create-block">
+    <div>
+      <h3>Modifica Account:</h3>
+    </div>
+    <form [formGroup]="editDeliveryForm" (submit)="editDeliveryData($event, editDeliveryForm)">
+      <div class="form-group row">
+        <label class="col-sm-3" for="delivery_first_name">Nome:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Nome" id="delivery_first_name" formControlName="first_name">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="delivery_last_name">Cognome:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Cognome" id="delivery_last_name" formControlName="last_name">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="delivery_email">Email:</label>
+        <input class="col-sm-9" type="email" placeholder="Inserisci la tua miglior Email" id="delivery_email" formControlName="email">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="delivery_username">Username:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Username" id="delivery_username" formControlName="username">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="delivery_shop_name">Nome Negozio:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Nome Negozio" id="delivery_shop_name" formControlName="shop_name">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="delivery_old_password">Vecchia Password:</label>
+        <input class="col-sm-9" type="password" placeholder="Inserisci Vecchia Password" id="delivery_old_password" formControlName="old_password">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="delivery_new_password">Nuova Password:</label>
+        <input class="col-sm-9" type="password" placeholder="Inserisci Nuova Password" id="delivery_new_password" formControlName="new_password">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="profile_picture">Immagine Profilo:</label>
+        <div class="col-sm-9">
+          <input type="file" (change)="encodeImageFileAsURL($event)" style="max-height:30px" />
+          <image-cropper style='display:block;width:100%;max-width:300px;height:auto;margin-top:40px'
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="1/1"
+                [resizeToWidth]="256"
+                [resizeToHeight]="256"
+                format="png"
+                (imageCropped)="imageCropped($event)">
+          </image-cropper>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="delivery_location">Posizione Geografica:</label><br/>
+        <div class="container map">
+          <app-map></app-map> 
+        </div>
+      </div>  
+      <button class="btn btn-primary" type="submit">Modifica Account</button>
+    </form>
+
+    <div class="status" *ngIf="deliveryEdited">
+      Account Modificato con Successo
+    </div>
+    <div class="status" *ngIf="validPassword">
+      Vecchia Password Necessaria
+    </div>
+    <div class="status" *ngIf="errorDeliveryEdit">
+      Errore dal Database, per favore ricarica!
+    </div>
+  </div>
+</div>

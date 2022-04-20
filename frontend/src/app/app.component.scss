@@ -1,0 +1,81 @@
+/*html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 1.6vw; }
+
+
+
+button:focus {
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+//scss relativo a home/navbar
+.capsule {
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+}
+nav {
+	width: 90%;
+	height: 60px;
+	background: white;
+}
+ul {
+	padding-left: 0;
+	display: flex;
+	list-style: none outside none;
+	justify-content: center;
+	align-items: center;
+}
+li {
+	padding: 0 50px;
+}
+a {
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+	&:visited {
+		text-decoration: none;
+		color: black;
+		cursor: pointer;
+	}
+	&:active {
+		text-decoration: none;
+		color: black;
+		cursor: pointer;
+	}
+}
+.cartitem {
+	position: relative;
+	float: right;
+}
+.cartcount {
+	font-family: 'Barlow', sans-serif;
+	position: absolute;
+	background: #ff2211;
+	color: white;
+	text-align: center;
+	padding-top: 4px;
+	width: 20px;
+	height: 20px;
+	font-size: 10px;
+	margin: -5px 0 0 20px;
+	border-radius: 1000px;
+	font-weight: 700;
+}*/
+
+router-outlet + ::ng-deep * {
+	margin-top: 120px;
+	display: block;
+}
+
+.container-fluid{
+	padding-right: 0px;
+	padding-left: 0px;
+}

@@ -1,0 +1,119 @@
+<div style="text-align:center; margin-bottom: 24px">
+    <h1>
+      {{ title }}
+    </h1>
+</div>
+
+<div style="text-align:center; margin-bottom: 24px">
+  <h1>
+    {{subtitle}}
+  </h1>
+</div>
+
+<div *ngIf="founderData">
+  <div class="container">
+    <div class="user-data card">
+      <div>
+        <div align="center">
+          <img style='display:block;width:100%;max-width:210px;height:auto' src={{founderData.profile_picture}} />
+        </div>
+        <div>
+          <span style="font-weight:bold">Nome:</span> {{founderData.first_name}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Cognome:</span> {{founderData.last_name}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Username:</span> {{founderData.username}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Telefono:</span> {{founderData.phone_number}}
+        </div>
+        <div>
+          <span style="font-weight:bold">Email:</span> {{founderData.email}}
+        </div>
+      </div>
+      <div>
+        <button style="margin: 4px;" class="btn btn-primary" (click)="editFounder($event, founderData)">
+          <i class="fas fa-edit"></i> Modifica
+        </button>
+        <button style="margin: 4px;" class="btn btn-danger" (click)="deleteFounder($event, founderData)">
+          <i class="fas fa-trash"></i> Elimina
+        </button>
+      </div>
+
+      <div>
+        <div class="status" *ngIf="founderDeleted && founderData.id === founderDeletedId">
+          Founder Eliminato con Successo!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="text-align:center" *ngIf="!founderData">
+    <h2>Errore, Ricarica la pagina per favore!</h2>
+</div>
+
+<div class="container" *ngIf="showEditFounderForm">
+  <div class="create-block">
+    <div>
+      <h3>Modifica Account:</h3>
+    </div>
+    <form [formGroup]="editFounderForm" (submit)="editFounderData($event, editFounderForm)">
+      <div class="form-group row">
+        <label class="col-sm-3" for="founder_first_name">Nome:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Nome" id="founder_first_name" formControlName="first_name">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="founder_last_name">Cognome:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Cognome" id="founder_last_name" formControlName="last_name">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="founder_phone_number">Telefono:</label>
+        <input class="col-sm-9" type="number" placeholder="Inserisci Numero di Telefono" id="founder_phone_number" formControlName="phone_number">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="founder_email">Email:</label>
+        <input class="col-sm-9" type="email" placeholder="Inserisci la tua Email" id="founder_email" formControlName="email">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="founder_username">Username:</label>
+        <input class="col-sm-9" type="text" placeholder="Inserisci Username" id="founder_username" formControlName="username">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="founder_old_password">Vecchia Password:</label>
+        <input class="col-sm-9" type="password" placeholder="Inserisci Vecchia Password" id="founder_old_password" formControlName="old_password">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="founder_new_password">Nuova Password:</label>
+        <input class="col-sm-9" type="password" placeholder="Inserisci Nuova Password" id="founder_new_password" formControlName="new_password">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="profile_picture">Immagine Profilo:</label>
+        <div class="col-sm-9">
+          <input type="file" (change)="encodeImageFileAsURL($event)" style="max-height:30px" />
+          <image-cropper style='display:block;width:100%;max-width:300px;height:auto;margin-top:40px'
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="1/1"
+                [resizeToWidth]="256"
+                [resizeToHeight]="256"
+                format="png"
+                (imageCropped)="imageCropped($event)">
+          </image-cropper>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Modifica</button>
+    </form>
+
+    <div class="status" *ngIf="founderEdited">
+      Account Modificato con Successo!
+    </div>
+    <div class="status" *ngIf="validPassword">
+      Vecchia Password Necessaria
+    </div>
+    <div class="status" *ngIf="errorFounderEdit">
+      Errore dal Database, Ricarica la Pagina!
+    </div>
+  </div>
+</div>

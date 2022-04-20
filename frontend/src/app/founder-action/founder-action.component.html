@@ -1,0 +1,82 @@
+<div style="text-align:center; margin-bottom: 24px">
+  <h1>
+    {{vendors}}
+  </h1>
+</div>
+    
+<h3 style="margin:15px" class="text-center">Account Commercianti:</h3>
+<div *ngIf="vendorsData" style="margin:10px">
+  <div class="row wow fadeIn">
+    <div class="container col-lg-3 col-md-6 mb-4" *ngFor="let vendor of vendorsData">
+      <div *ngIf="!showEditUserForm" class="user-data card" style="max-width:360px">
+        <div>
+          <div>
+            <span style="font-weight:bold">Immagine Negozio:</span>
+            <img style='display:block;width:100%;max-width:210px;height:auto' src={{vendor.shop_picture}} />
+          </div>
+          <div>
+            <span style="font-weight:bold">ID: </span>{{vendor._id}}
+          </div>
+          <div>
+            <span style="font-weight:bold">Username: </span>{{vendor.username}}
+          </div>
+          <div>
+            <span style="font-weight:bold">Email: </span>{{vendor.email}}
+          </div>
+          <div>
+            <span style="font-weight:bold">Stato Registrazione: </span>{{vendor.registration_status}}
+          </div>
+        </div>
+        <div style="margin-top:5px">
+          <button style="margin:4px;" class="btn btn-primary" (click)="editVendor($event, vendor); goToBottom()">
+            <i class="fas fa-edit"></i> Modifica
+          </button>
+          <button style="margin:4px;" class="btn btn-danger" (click)="deleteVendor($event, vendor)">
+            <i class="fas fa-trash"></i> Elimina
+          </button>
+        </div>
+  
+        <div>
+          <div class="status" *ngIf="vendorChoose && vendor._id === vendorChooseId">
+            Sotto questa Lista trovi il Form per Modificare il Commerciante!
+          </div>
+        </div>
+        <div>
+          <div class="status" *ngIf="vendorDeleted && vendor.id === vendorDeletedId">
+            Account Commerciante Eliminato con Successo
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<div class="container" *ngIf="showEditVendorsForm" style="margin-top:10px">
+  <div class="create-block">
+    <div>
+      <h3>Modifica Commerciante:</h3>
+    </div>
+    <form [formGroup]="editVendorForm" (submit)="editVendorData($event, editVendorForm)">
+      <div class="form-group row">
+        <label class="col-sm-3" for="registration_status">Stato Registrazione:</label>
+        <select [(ngModel)]="selectedOption" formControlName="registration_status">
+          <option *ngFor="let o of options">
+            {{o.name}}
+          </option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="submit">Modifica Commerciante</button>
+    </form>
+  
+    <div class="status" *ngIf="vendorEdited">
+      Commerciante Modificato con Successo
+    </div>
+    <div class="status" *ngIf="errorVendorEdit">
+      Errore di Modifica Commerciante, Per favore Riprova!
+    </div>
+  </div>
+</div>
+  
+<div style="text-align:center" *ngIf="!vendorsData">
+  <h5>{{noVendors}}</h5>
+</div>

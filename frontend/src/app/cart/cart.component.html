@@ -1,0 +1,55 @@
+<div class="container ">
+    <div class="row">
+        <div class="col-12  header">
+            <h1 class="mat-h1">Il tuo carrello</h1>
+        </div>
+    </div>
+        <div class="container-fluid">
+            <div *ngIf="products.length > 0; else elseBlock">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-2 offset-10">
+                            <p class="mat-h2">Prezzo</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="products">
+                                <li *ngFor="let product of products; let i = index">
+                                    <app-cart-product [index]=i [product]=product (removeClicked)="parentEventHandlerFunction($event)"></app-cart-product>
+                                </li>
+                            </ul>
+                        </div> 
+                    </div>
+                    <br>
+                    <div class="row mat-h3">
+                        <div class="col-3 ">
+                            <p>Totale provvisorio:</p>
+                        </div>
+                        <div class="col-2 offset-7">
+                            <p>{{total}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 offset-10 ">
+                            <button class="btn" (click)="open()" >Procedi</button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            <ng-template #elseBlock>
+                <div class="container-fluid mat-typography">
+                    <p>Nessun elemento nel carrello, inizia lo shopping.</p> 
+                </div>
+                
+            </ng-template>
+        </div>
+        <br>
+        <br>
+        <br>
+    
+    
+</div>
+

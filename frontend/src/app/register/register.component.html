@@ -1,0 +1,104 @@
+<div class="container ">
+  <div class="row mt-5">
+    <div class="col-8 offset-2 title">
+      <h2>Gotta Shop 'Em All </h2>
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="User"> 
+          <!-- form di registrazione dell'utente -->
+          <form [formGroup]="registerUserForm" (ngSubmit)="onUserSubmit()">
+            <div class="form-group mt-5">
+              <input type="text" class="form-control" matInput placeholder="Nome" id="exampleInputFirstname1" formControlName="firstname">
+              <mat-error *ngIf="userData.firstname.errors?.required">Il Nome è Necessario</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="text" class="form-control" matInput placeholder="Cognome" id="exampleInputLastname1" formControlName="lastname">
+              <mat-error *ngIf="userData.lastname.errors?.required">Il Cognome è Necessario</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="email" class="form-control" matInput placeholder="La tua miglior Email" id="exampleInputEmail1" formControlName="email">
+              <mat-error *ngIf="userData.email.errors?.required">L'Email è richiesta</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="text" class="form-control" matInput placeholder="Scegli il tuo Username" id="exampleInputUsername1" formControlName="username">
+              <mat-error *ngIf="userData.username.errors?.required">Username Necessario</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="password" class="form-control" matInput placeholder="Scegli una Password" id="exampleInputPassword1" formControlName="password">
+              <mat-error *ngIf="userData.password.errors?.required">Password Richiesta</mat-error>
+            </div>
+            <div class="mt-5">
+              <button type="submit" class="btn  mr-3" >Registrati</button>
+              <button class="btn  ml-3" routerLink="/login">Indietro</button>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Delivery"> 
+          <!-- form di registrazione del fattorino -->
+          <form [formGroup]="registerDeliveryForm" (ngSubmit)="onDeliverySubmit()">
+            <div class="form-group mt-5">
+              <input type="text" class="form-control" matInput placeholder="Inserisci Name" id="exampleInputFirstname1" formControlName="firstname">
+              <mat-error *ngIf="deliveryData.firstname.errors?.required">Il Nome è Necessario</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="text" class="form-control" matInput placeholder="Inserisci Cognome" id="exampleInputLastname1" formControlName="lastname">
+              <mat-error *ngIf="deliveryData.lastname.errors?.required">Il Cognome è Necessario</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="email" class="form-control" matInput placeholder="La tua miglior Email" id="exampleInputEmail1" formControlName="email">
+              <mat-error *ngIf="deliveryData.email.errors?.required">L'Email è richiesta</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="text" class="form-control" matInput placeholder="Inserisci Username" id="exampleInputUsername1" formControlName="username">
+              <mat-error *ngIf="deliveryData.username.errors?.required">Username Necessario</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="password" class="form-control" matInput placeholder="Inserisci la Password" id="exampleInputPassword1" formControlName="password">
+              <mat-error *ngIf="deliveryData.password.errors?.required">Password Necessaria</mat-error>
+            </div>
+            <div class="mt-5">
+              <button type="submit" class="btn  mr-3" >Registrati</button>
+              <button class="btn  ml-3" routerLink="/login">Indietro</button>
+            </div>
+          </form> 
+        </mat-tab>
+        <mat-tab label="Admin"> 
+          <!-- form di registrazione dell'admin --> 
+          <form [formGroup]="registerAdminForm" (ngSubmit)="onAdminSubmit()">
+            <div class="form-group mt-5">
+              <input type="text" class="form-control" matInput placeholder="Inserisci Nome" id="exampleInputFirstname1" formControlName="firstname">
+              <mat-error *ngIf="adminData.firstname.errors?.required">Il Nome è Richiesto</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="text" class="form-control" matInput placeholder="Inserisci Cognome" id="exampleInputLastname1" formControlName="lastname">
+              <mat-error *ngIf="adminData.lastname.errors?.required">Il Cognome è Richiesto</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="number" class="form-control" matInput placeholder="Il tuo Numero di Telefono" id="exampleInputPhoneNumber1" maxlength="10" formControlName="number">
+              <mat-error *ngIf="adminData.number.errors?.required">Numero di Telefono richiesto</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="email" class="form-control" matInput placeholder="La tua miglior Email" id="exampleInputEmail1" formControlName="email">
+              <mat-error *ngIf="adminData.email.errors?.required">L'Email è richiesta</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="text" class="form-control" matInput placeholder="Inserisci Username" id="exampleInputUsername1" formControlName="username">
+              <mat-error *ngIf="adminData.username.errors?.required">Username Necessario</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="password" class="form-control" matInput placeholder="Inserisci la Password" id="exampleInputPassword1" formControlName="password">
+              <mat-error *ngIf="adminData.password.errors?.required">Password Necessaria</mat-error>
+            </div>
+            <div class="form-group mt-3">
+              <input type="text" class="form-control" matInput placeholder="Inserisci il Nome del Negozio" id="exampleInputShopName1" formControlName="shopname">
+              <mat-error *ngIf="adminData.shopname.errors?.required">Nome Negozio Necessario</mat-error>
+            </div>
+            <div class="mt-5">
+              <button type="submit" class="btn  mr-3">Registrati</button>
+              <button class="btn  ml-3" routerLink="/login">Indietro</button>
+            </div>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

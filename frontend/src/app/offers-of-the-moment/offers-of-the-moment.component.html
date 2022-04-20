@@ -1,0 +1,38 @@
+<a routerLink="/offers-of-the-moment" ><h2 class="titleHome">{{title}}</h2></a>
+	<div class="container">
+		<div class="row">
+		<div class="col-lg-3 col-md-6 col-sm-12 mb-4" *ngFor="let item of scope.mediator">
+			<app-card-single-product [product]=item></app-card-single-product>
+		</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2 col-3 align-self-center ">
+				<button class="btn" (click)="leftClick()">
+					<i class="fa fa-angle-left"></i> Indietro
+				</button>
+			</div>
+			<div class="col-md-8 col-6"></div>
+			<div class="col-md-2 col-3 align-self-center ">
+				<button class="btn" (click)="rightClick()">Avanti
+					<i class="fa fa-angle-right"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
